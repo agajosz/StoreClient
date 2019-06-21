@@ -6,11 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Data\" />
-    <Folder Include="Extensions\" />
-    <Folder Include="IoC\" />
-    <Folder Include="Services\" />
     <Folder Include="Repositories\" />
+    <Folder Include="Services\Implementation\" />
   </ItemGroup>
 
   <ItemGroup>
