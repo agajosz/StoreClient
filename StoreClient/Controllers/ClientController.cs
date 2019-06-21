@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StoreClient.Core.Domain;
+using StoreClient.Infrastructure.Model;
 using StoreClient.Infrastructure.Services.Abstraction;
 
 namespace StoreClient.Controllers
@@ -14,19 +12,38 @@ namespace StoreClient.Controllers
     public class ClientController : ControllerBase
     {
         private readonly IClientService _clientService;
-        private readonly IOrderService _orderService;
         public ClientController(
-            IClientService clientService,
-            IOrderService orderService)
+            IClientService clientService)
         {
             _clientService = clientService;
-            _orderService = orderService;
         }
+
         [HttpGet]
         [Route("addClient")]
-        public async Task<bool> AddClient(Client client)
+        public async Task<bool> AddClient([FromBody]ClientModel clientModel)
         {
-            return await _clientService.AddClient(client);
+            return await _clientService.AddClientAsync(clientModel);
+        }
+
+        [HttpPost]
+        [Route("updateClient")]
+        public async Task<bool> UpdateClient([FromBody]ClientModel clientModel)
+        {
+            return await _clientService.UpdateClient(clientModel);
+        }
+
+        [HttpGet]
+        [Route("getClients")]
+        public async Task<IQueryable<Client>> GetClients()
+        {
+            return await _clientService.GetClients();
+        }
+
+        [HttpGet]
+        [Route("searchClient")]
+        public async Task<Client> SearchClient(string identity)
+        {
+            return await _clientService.SearchClient(identity);
         }
     }
 }

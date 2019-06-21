@@ -9,6 +9,6 @@ namespace StoreClient.Core.Domain
     {
         public Guid ClientId { get; set; }
         public virtual Client Client { get; set; }
-        public ICollection<OrderedProducts> OrderedProducts { get; set; }
+        public virtual ICollection<OrderedProducts> OrderedProducts { get; set; } = new List<OrderedProducts>();
     }
 }

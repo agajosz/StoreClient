@@ -1,5 +1,7 @@
-﻿using StoreClient.Core.Domain;
+﻿using Microsoft.EntityFrameworkCore;
+using StoreClient.Core.Domain;
 using StoreClient.Core.Repositories;
+using StoreClient.Infrastructure.Model;
 using StoreClient.Infrastructure.Services.Abstraction;
 using System;
 using System.Collections.Generic;
@@ -17,20 +19,54 @@ namespace StoreClient.Infrastructure.Services.Implementation
         {
             _clientRepository = clientRepository;
         }
-        public Task<bool> AddClient(ClientModel clientModel)
-        {
-            _clientRepository.Add(new Client
-            {
-                Id = Guid.NewGuid(),
 
-            });
+        public async Task<bool> AddClientAsync(ClientModel clientModel)
+        {
+            try
+            {
+                await _clientRepository.Add(new Client
+                {
+                    Id = Guid.NewGuid(),
+                    Login = clientModel.Login,
+                    Email = clientModel.Email,
+                    Name = clientModel.Name,
+                    Password = clientModel.Password,
+                    PhoneNumber = clientModel.PhoneNumber,
+                    Surname = clientModel.Surname
+                });
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+                throw;
+            }
+
+        }
+
+        public async Task<bool> UpdateClient(ClientModel clientModel)
+        {
+            var client = await _clientRepository.GetById(clientModel.Id);
+
+            client.Login = clientModel.Login;
+            client.Name = clientModel.Name;
+            client.Surname = clientModel.Surname;
+            client.Password = clientModel.Password;
+            client.PhoneNumber = clientModel.PhoneNumber;
+            client.Email = clientModel.Email;
+
+            await _clientRepository.Update(client);
+
+            return true;
         }
 
         public async Task<IQueryable<Client>> GetClients()
         {
             var clientsList = _clientRepository
                 .GetAll()
-                .Where(c => c.IsDeleted == false);
+                .Include(c => c.Orders).ThenInclude(o => o.OrderedProducts)
+                .Where(c => c.IsDeleted == false)
+                .OrderByDescending(c => c.CreationDateTime);
 
             return await Task.FromResult(clientsList);
         }
@@ -41,11 +77,6 @@ namespace StoreClient.Infrastructure.Services.Implementation
                .GetAll()
                .FirstOrDefault(c => c.IsDeleted == false &&
                (c.Login == identity || c.Name == identity || c.Email == identity)));
-        }
-
-        public Task<bool> UpdateClient(Client client)
-        {
-            throw new NotImplementedException();
         }
     }
 }

@@ -14,6 +14,7 @@ namespace StoreClient.Infrastructure.Repositories.Base
         public BaseRepository(StoreClientContext context)
         {
             _context = context;
+            _table = _context.Set<T>();
         }
 
         public async Task Add(T entity)

@@ -1,4 +1,5 @@
 ﻿using StoreClient.Core.Domain;
+using StoreClient.Infrastructure.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,8 +11,8 @@ namespace StoreClient.Infrastructure.Services.Abstraction
     public interface IClientService : IService
     {
         Task<IQueryable<Client>> GetClients();
-        Task<bool> AddClient(Client client);
-        Task<bool> UpdateClient(Client client);
+        Task<bool> AddClientAsync(ClientModel client);
+        Task<bool> UpdateClient(ClientModel client);
         Task<Client> SearchClient(string identity);
     }
 }
