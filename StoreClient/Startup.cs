@@ -1,12 +1,13 @@
 ﻿using System;
 using Alexinea.Autofac.Extensions.DependencyInjection;
 using Autofac;
-using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using StoreClient.Infrastructure.Data;
+using StoreClient.Infrastructure.IoC;
 
 namespace StoreClient
 {

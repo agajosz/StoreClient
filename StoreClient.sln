@@ -4,10 +4,16 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.29009.5
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoreClient", "StoreClient\StoreClient.csproj", "{A38A0E17-B84F-46E4-9A31-2C5CCB225880}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9C5ED56B-AB95-47FD-A96F-C560A95EBB6F} = {9C5ED56B-AB95-47FD-A96F-C560A95EBB6F}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoreClient.Core", "StoreClient.core\StoreClient.Core.csproj", "{9C5ED56B-AB95-47FD-A96F-C560A95EBB6F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoreClient.Infrastructure", "StoreClient.Infrastructure\StoreClient.Infrastructure.csproj", "{39E2EC96-24DC-45A0-8025-F5BB41A41D4A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9C5ED56B-AB95-47FD-A96F-C560A95EBB6F} = {9C5ED56B-AB95-47FD-A96F-C560A95EBB6F}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
